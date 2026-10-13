@@ -1,0 +1,43 @@
+@use '../tela-capa';
+
+.cartao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  // a imagem já vem com margem branca; compensa para não sobrar espaço
+  margin: -24px 0 -16px;
+}
+
+.descricao {
+  margin: 0 0 24px;
+  color: var(--texto-suave);
+  line-height: 1.5;
+}
+
+.erro {
+  align-self: stretch;
+  color: var(--erro);
+  background: var(--erro-fundo);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 0 0 16px;
+}
+
+.botao {
+  align-self: stretch;
+}
+
+.voltar {
+  display: inline-block;
+  margin-top: 28px;
+  color: #fff;
+  font-size: 0.95rem;
+}

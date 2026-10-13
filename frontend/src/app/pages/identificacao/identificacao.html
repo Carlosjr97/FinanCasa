@@ -1,0 +1,73 @@
+<div class="tela">
+  <img src="capa.png" alt="" class="foto-capa" />
+
+  <div class="apresentacao">
+    <span class="passo">Passo 1 de 3</span>
+    <h1 class="titulo">
+      Conte um pouco sobre você
+      <span class="subtitulo">
+        Com esses dados calculamos a entrada, o prazo, a taxa de juros e o valor das parcelas.
+      </span>
+    </h1>
+  </div>
+
+  <section class="cartao">
+    <h2>Seus dados</h2>
+
+    <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+      <label>
+        Nome
+        <input type="text" formControlName="nome" autocomplete="name" placeholder="Como podemos te chamar?" />
+        @if (invalido('nome')) {
+          <span class="erro-campo">Informe o nome.</span>
+        }
+      </label>
+
+      <label>
+        Idade
+        <input type="number" formControlName="idade" min="18" step="1" placeholder="Ex.: 30" />
+        @if (invalido('idade')) {
+          <span class="erro-campo">Informe a idade em anos completos (mínimo 18).</span>
+        }
+      </label>
+
+      <fieldset>
+        <legend>Tipo de renda</legend>
+        <div class="opcoes">
+          <label class="opcao">
+            <input type="radio" formControlName="tipoRenda" value="PROPRIA" />
+            <span>Própria</span>
+          </label>
+          <label class="opcao">
+            <input type="radio" formControlName="tipoRenda" value="FAMILIAR" />
+            <span>Familiar</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <label>
+        Renda mensal
+        <span class="campo-moeda">
+          <span class="prefixo">R$</span>
+          <input type="text" inputmode="numeric" appMoeda formControlName="renda" placeholder="0,00" />
+        </span>
+        @if (invalido('renda')) {
+          <span class="erro-campo">Informe a renda mensal.</span>
+        }
+      </label>
+
+      <label>
+        Valor do imóvel
+        <span class="campo-moeda">
+          <span class="prefixo">R$</span>
+          <input type="text" inputmode="numeric" appMoeda formControlName="valorImovel" placeholder="0,00" />
+        </span>
+        @if (invalido('valorImovel')) {
+          <span class="erro-campo">Informe o valor do imóvel.</span>
+        }
+      </label>
+
+      <button type="submit" class="botao">Continuar</button>
+    </form>
+  </section>
+</div>

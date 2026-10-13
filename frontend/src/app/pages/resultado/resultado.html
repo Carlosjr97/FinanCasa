@@ -1,0 +1,108 @@
+@if (resultado(); as r) {
+  <div class="tela">
+    <img src="capa.png" alt="" class="foto-capa" />
+
+    <header class="apresentacao">
+      <span class="passo">Passo 3 de 3</span>
+      <h1 class="titulo">
+        Olá, {{ r.nome }}
+        <span class="subtitulo">Este é o resultado da sua simulação no Minha Casa Minha Vida, pela Caixa.</span>
+      </h1>
+    </header>
+
+    <section class="cartao">
+      <h2>Seu enquadramento</h2>
+
+      <dl class="destaques">
+        <div class="principal">
+          <dt>Entrada necessária</dt>
+          <dd>{{ r.entrada | currency: 'BRL' }}</dd>
+        </div>
+        <div>
+          <dt>Valor financiado</dt>
+          <dd>{{ r.valorFinanciado | currency: 'BRL' }}</dd>
+        </div>
+        <div>
+          <dt>Subsídio</dt>
+          <dd>{{ r.subsidio | currency: 'BRL' }}</dd>
+        </div>
+      </dl>
+
+      <dl class="resumo">
+        <div>
+          <dt>Faixa</dt>
+          <dd>{{ nomeFaixa() }}</dd>
+        </div>
+        <div>
+          <dt>Prazo</dt>
+          <dd>{{ r.prazoMeses }} meses</dd>
+        </div>
+        <div>
+          <dt>Taxa de juros</dt>
+          <dd>{{ r.taxaAnual | number: '1.2-2' }}% ao ano</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="cartao">
+      <h2>Escolha o sistema de amortização</h2>
+
+      <div class="sistemas">
+        <button type="button" [class.ativo]="sistema() === 'price'" (click)="sistema.set('price')">
+          Price (parcela fixa)
+        </button>
+        <button type="button" [class.ativo]="sistema() === 'sac'" (click)="sistema.set('sac')">
+          SAC (parcela decrescente)
+        </button>
+      </div>
+
+      @if (tabela(); as t) {
+        <dl class="resumo">
+          <div>
+            <dt>Primeira parcela</dt>
+            <dd>{{ t.primeiraParcela | currency: 'BRL' }}</dd>
+          </div>
+          <div>
+            <dt>Última parcela</dt>
+            <dd>{{ t.ultimaParcela | currency: 'BRL' }}</dd>
+          </div>
+          <div>
+            <dt>Total de juros</dt>
+            <dd>{{ t.totalJuros | currency: 'BRL' }}</dd>
+          </div>
+          <div>
+            <dt>Total pago</dt>
+            <dd>{{ t.totalPago | currency: 'BRL' }}</dd>
+          </div>
+        </dl>
+
+        <div class="tabela">
+          <table>
+            <thead>
+              <tr>
+                <th>Nº</th>
+                <th>Parcela</th>
+                <th>Juros</th>
+                <th>Amortização</th>
+                <th>Saldo devedor</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (p of t.parcelas; track p.numero) {
+                <tr>
+                  <td>{{ p.numero }}</td>
+                  <td>{{ p.valor | currency: 'BRL' }}</td>
+                  <td>{{ p.juros | currency: 'BRL' }}</td>
+                  <td>{{ p.amortizacao | currency: 'BRL' }}</td>
+                  <td>{{ p.saldoDevedor | currency: 'BRL' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+
+    <a routerLink="/" class="botao">Fazer nova simulação</a>
+  </div>
+}

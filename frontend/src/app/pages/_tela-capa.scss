@@ -1,0 +1,202 @@
+// Visual comum das telas com foto de capa (identificação e modelo):
+// foto escurecida, texto branco à esquerda, cartão branco à direita e botão âmbar.
+$ambar: #f9a826;
+
+.tela {
+  // anula o padding do <main> global para a capa encostar nas bordas
+  margin: -32px -16px;
+  min-height: 100dvh;
+  padding: 48px clamp(24px, 8vw, 120px);
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+
+  // escurece a foto para o texto ficar legível
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(10, 16, 28, 0.88) 0%, rgba(10, 16, 28, 0.6) 55%, rgba(10, 16, 28, 0.4) 100%);
+  }
+}
+
+.foto-capa {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.apresentacao {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  max-width: 32rem;
+}
+
+.passo {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: $ambar;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.titulo {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+}
+
+.subtitulo {
+  display: block;
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-shadow: none;
+}
+
+.cartao {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  width: 100%;
+  max-width: 440px;
+  margin: 0;
+  padding: 32px;
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+
+input[type='text'],
+input[type='number'] {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: var(--texto);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &::placeholder {
+    color: #9aa4b2;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primaria);
+    box-shadow: 0 0 0 3px rgba(11, 92, 171, 0.15);
+  }
+
+  &.ng-invalid.ng-touched {
+    border-color: var(--erro);
+  }
+}
+
+// "R$" fixo à esquerda do campo de dinheiro
+.campo-moeda {
+  position: relative;
+  display: block;
+
+  .prefixo {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--texto-suave);
+    font-size: 1rem;
+    font-weight: 400;
+    pointer-events: none;
+  }
+
+  input {
+    padding-left: 44px;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.erro-campo {
+  color: var(--erro);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.botao {
+  padding: 14px 30px;
+  border-radius: 999px;
+  background: $ambar;
+  color: #1c2430;
+  font-size: 1.05rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(249, 168, 38, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+
+  &::after {
+    content: '→';
+    display: inline-block;
+    margin-left: 10px;
+    transition: transform 0.15s ease;
+  }
+
+  &:hover:not(:disabled) {
+    background: #ffb840;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(249, 168, 38, 0.45);
+
+    &::after {
+      transform: translateX(4px);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--primaria);
+    outline-offset: 3px;
+  }
+}
+
+// em telas estreitas o texto vai para cima do cartão
+@media (max-width: 860px) {
+  .tela {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 28px;
+    padding: 40px 20px;
+
+    &::before {
+      background: rgba(10, 16, 28, 0.7);
+    }
+  }
+
+  .apresentacao {
+    flex: none;
+    max-width: none;
+  }
+
+  .cartao {
+    max-width: none;
+    padding: 24px;
+  }
+}

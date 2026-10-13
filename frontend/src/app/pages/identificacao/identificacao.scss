@@ -1,0 +1,78 @@
+@use '../tela-capa';
+
+h2 {
+  margin: 0 0 20px;
+  font-size: 1.25rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  legend {
+    padding: 0;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}
+
+// os dois rádios viram um seletor de duas metades
+.opcoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 12px;
+  background: var(--fundo);
+}
+
+.opcao {
+  input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  span {
+    padding: 10px 12px;
+    border-radius: 9px;
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--texto-suave);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  input:checked + span {
+    background: #fff;
+    color: var(--texto);
+    font-weight: 700;
+    box-shadow: 0 1px 4px rgba(16, 24, 40, 0.15);
+  }
+
+  input:focus-visible + span {
+    outline: 2px solid var(--primaria);
+    outline-offset: 2px;
+  }
+}
+
+.botao {
+  margin-top: 8px;
+}

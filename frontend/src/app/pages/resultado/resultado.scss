@@ -1,0 +1,193 @@
+@use '../tela-capa';
+
+$largura: 960px;
+
+// Aqui o conteúdo é comprido: tudo empilhado e centralizado, com a foto parada ao rolar.
+.tela {
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+
+  &::before {
+    background: rgba(10, 16, 28, 0.78);
+  }
+}
+
+.foto-capa {
+  position: fixed;
+  height: 100dvh;
+}
+
+.apresentacao {
+  flex: none;
+  width: 100%;
+  max-width: $largura;
+  margin-bottom: 8px;
+}
+
+.cartao {
+  max-width: $largura;
+}
+
+h2 {
+  margin: 0 0 20px;
+  font-size: 1.25rem;
+}
+
+dl {
+  margin: 0;
+}
+
+dt {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+dd {
+  margin: 4px 0 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.destaques,
+.resumo {
+  display: grid;
+  gap: 12px;
+
+  div {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: var(--fundo);
+  }
+}
+
+.destaques {
+  grid-template-columns: 1.3fr 1fr 1fr;
+  margin-bottom: 12px;
+
+  dd {
+    font-size: 1.35rem;
+  }
+
+  // a entrada é o número mais importante da tela
+  .principal {
+    background: #1c2430;
+
+    dt {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    dd {
+      color: tela-capa.$ambar;
+      font-size: 1.75rem;
+    }
+  }
+}
+
+.resumo {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+
+  dd {
+    font-size: 1.05rem;
+  }
+}
+
+// os dois botões formam um seletor de duas metades
+.sistemas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: var(--fundo);
+
+  button {
+    padding: 10px 12px;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--texto-suave);
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+
+    &.ativo {
+      background: #fff;
+      color: var(--texto);
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(16, 24, 40, 0.15);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primaria);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.tabela {
+  max-height: 440px;
+  margin-top: 16px;
+  overflow: auto;
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+  padding: 10px 16px;
+  text-align: right;
+  white-space: nowrap;
+
+  &:first-child {
+    text-align: left;
+  }
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background: var(--fundo);
+  color: var(--texto-suave);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 1px 0 var(--borda);
+}
+
+td:first-child {
+  color: var(--texto-suave);
+}
+
+tbody tr:nth-child(even) {
+  background: #fafbfc;
+}
+
+.botao {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  margin-top: 8px;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline-color: #fff;
+  }
+}
+
+@media (max-width: 860px) {
+  .destaques {
+    grid-template-columns: 1fr;
+  }
+
+  .sistemas {
+    grid-template-columns: 1fr;
+  }
+}

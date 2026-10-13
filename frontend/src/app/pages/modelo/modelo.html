@@ -1,0 +1,29 @@
+<div class="tela">
+  <img src="capa.png" alt="" class="foto-capa" />
+
+  <div class="apresentacao">
+    <span class="passo">Passo 2 de 3</span>
+    <h1 class="titulo">
+      Confirme o modelo de financiamento
+      <span class="subtitulo">A simulação é feita pela Caixa, no programa Minha Casa Minha Vida.</span>
+    </h1>
+    <a routerLink="/simular" class="voltar">Voltar e corrigir os dados</a>
+  </div>
+
+  <section class="cartao">
+    <img src="mcmv.jpg" alt="Minha Casa Minha Vida" class="logo" />
+
+    <p class="descricao">
+      Financiamento pela Caixa, com juros de 4% a 10% ao ano conforme a renda e subsídio de até R$ 65.000 nas
+      faixas 1 e 2.
+    </p>
+
+    @if (erro(); as mensagem) {
+      <p class="erro" role="alert">{{ mensagem }}</p>
+    }
+
+    <button type="button" class="botao" (click)="escolher()" [disabled]="carregando()">
+      {{ carregando() ? 'Simulando' : 'Simular com este modelo' }}
+    </button>
+  </section>
+</div>
