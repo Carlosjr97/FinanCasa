@@ -24,6 +24,7 @@ public class SimulacaoService {
 	public SimulacaoResponse simular(SimulacaoRequest req) {
 		int prazo = regras.prazoMeses(req.idade());
 		Faixa faixa = Faixa.de(req.renda());
+		regras.validarValorImovel(faixa, req.valorImovel());
 		BigDecimal taxaAnual = regras.sortearTaxaAnual(faixa);
 		BigDecimal subsidio = regras.sortearSubsidio(faixa, req.valorImovel());
 		BigDecimal saldoAposSubsidio = req.valorImovel().subtract(subsidio).setScale(2, RoundingMode.HALF_UP);

@@ -2,6 +2,7 @@ package com.exemplo.financiamento.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Locale;
 import java.util.Random;
 
 import com.exemplo.financiamento.model.Faixa;
@@ -46,6 +47,14 @@ public class RegrasService {
 			return 180;
 		}
 		return 120;
+	}
+
+	// Cada faixa tem um teto para o preço do imóvel; o valor exato do teto ainda é aceito.
+	public void validarValorImovel(Faixa faixa, BigDecimal valorImovel) {
+		if (valorImovel.compareTo(faixa.getValorMaximoImovel()) > 0) {
+			throw new RegraNegocioException(String.format(Locale.of("pt", "BR"),
+					"Na faixa %d o imóvel pode custar até R$ %,.2f", faixa.ordinal() + 1, faixa.getValorMaximoImovel()));
+		}
 	}
 
 	public BigDecimal sortearTaxaAnual(Faixa faixa) {

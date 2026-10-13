@@ -9,6 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RegrasServiceTests {
@@ -37,6 +38,25 @@ class RegrasServiceTests {
 	@Test
 	void rendaAcimaDoTetoFicaForaDoPrograma() {
 		assertThatThrownBy(() -> Faixa.de(new BigDecimal("13000.01"))).isInstanceOf(RegraNegocioException.class);
+	}
+
+	@ParameterizedTest
+	@CsvSource({ "FAIXA_1,275000.00", "FAIXA_2,275000.00", "FAIXA_3,400000.00", "FAIXA_4,600000.00" })
+	void imovelNoTetoDaFaixaEhAceito(Faixa faixa, String valorImovel) {
+		assertThatCode(() -> regras.validarValorImovel(faixa, new BigDecimal(valorImovel))).doesNotThrowAnyException();
+	}
+
+	@ParameterizedTest
+	@CsvSource({ "FAIXA_1,275000.01", "FAIXA_2,275000.01", "FAIXA_3,400000.01", "FAIXA_4,600000.01" })
+	void imovelAcimaDoTetoDaFaixaEhRecusado(Faixa faixa, String valorImovel) {
+		assertThatThrownBy(() -> regras.validarValorImovel(faixa, new BigDecimal(valorImovel)))
+			.isInstanceOf(RegraNegocioException.class);
+	}
+
+	@Test
+	void mensagemDoTetoInformaAFaixaEOValor() {
+		assertThatThrownBy(() -> regras.validarValorImovel(Faixa.FAIXA_3, new BigDecimal("450000.00")))
+			.hasMessage("Na faixa 3 o imóvel pode custar até R$ 400.000,00");
 	}
 
 	@Test
